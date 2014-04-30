@@ -110,14 +110,15 @@
     };
     update = function() {
       if (input.isDown(38)) {
-        return cell.y -= 10;
+        cell.y -= 10;
       } else if (input.isDown(40)) {
-        return cell.y += 10;
+        cell.y += 10;
       } else if (input.isDown(37)) {
-        return cell.x -= 10;
+        cell.x -= 10;
       } else if (input.isDown(39)) {
-        return cell.x += 10;
+        cell.x += 10;
       }
+      return cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);
     };
     render = function() {
       var virus, _i, _len;

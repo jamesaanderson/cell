@@ -68,8 +68,12 @@ $ ->
       i++
       viruses.push(
         sprite: virusSprite,
-        x: Math.floor(Math.random()*(WIDTH-virusSprite.w)),
-        y: Math.floor(Math.random()*((HEIGHT-virusSprite.h)/2))
+        x: Math.floor(
+          Math.random() * (WIDTH-virusSprite.w)
+        ),
+        y: Math.floor(
+          Math.random() * ((HEIGHT-virusSprite.h)/2)
+        )
       )
 
   run = ->
@@ -89,6 +93,8 @@ $ ->
       cell.x -= 10
     else if input.isDown(39) # Right
       cell.x += 10
+
+    cell.x = Math.max(Math.min(cell.x, WIDTH-virusSprite.w), 0)
 
   render = ->
     game.clear()
