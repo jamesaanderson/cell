@@ -68,6 +68,7 @@ $ ->
     i = 0
     while i < 10
       i++
+
       viruses.push(
         sprite: virusSprite,
         x: Math.floor(
@@ -107,6 +108,7 @@ $ ->
       cell.x += 10
 
     cell.x = Math.max(Math.min(cell.x, WIDTH-virusSprite.w), 0)
+    cell.y = Math.min(cell.y, HEIGHT-virusSprite.h)
 
   render = ->
     game.clear()

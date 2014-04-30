@@ -125,7 +125,8 @@
       } else if (input.isDown(39)) {
         cell.x += 10;
       }
-      return cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);
+      cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);
+      return cell.y = Math.min(cell.y, HEIGHT - virusSprite.h);
     };
     render = function() {
       var bacterium, virus, _i, _j, _len, _len1;
