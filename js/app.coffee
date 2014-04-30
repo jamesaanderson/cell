@@ -38,6 +38,7 @@ $ ->
   cellSprite = undefined
   bacteriaSprite = undefined
   viruses = undefined
+  bacteria = undefined
   cell = undefined
   input = undefined
 
@@ -63,6 +64,7 @@ $ ->
     }
 
     viruses = []
+    bacteria = []
     i = 0
     while i < 10
       i++
@@ -73,6 +75,16 @@ $ ->
         ),
         y: Math.floor(
           Math.random() * ((HEIGHT-virusSprite.h)/2)
+        )
+      )
+
+      bacteria.push(
+        sprite: bacteriaSprite,
+        x: Math.floor(
+          Math.random() * (WIDTH-bacteriaSprite.w)
+        ),
+        y: Math.floor(
+          Math.random() * ((HEIGHT-bacteriaSprite.h)/2)
         )
       )
 
@@ -100,6 +112,7 @@ $ ->
     game.clear()
 
     game.drawSprite(virus.sprite, virus.x, virus.y) for virus in viruses
+    game.drawSprite(bacterium.sprite, bacterium.x, bacterium.y) for bacterium in bacteria
     game.drawSprite(cell.sprite, cell.x, cell.y)
 
   main()
