@@ -18,7 +18,7 @@ main = ->
   img.src = 'img/sprites.png'
 
 init = ->
-  cell = new Player(cellSprite, (WIDTH-cellSprite.w)/2, HEIGHT-cellSprite.h)
+  cell = new Entity(cellSprite, (WIDTH-cellSprite.w)/2, HEIGHT-cellSprite.h)
 
   viruses = []
   bacteria = []
@@ -26,7 +26,7 @@ init = ->
   while i < 10
     i++
 
-    viruses.push(new Player(
+    viruses.push(new Entity(
       virusSprite,
       Math.floor(
         Math.random() * (WIDTH-virusSprite.w)
@@ -36,7 +36,7 @@ init = ->
       )
     ))
 
-    bacteria.push(new Player(
+    bacteria.push(new Entity(
       bacteriaSprite,
       Math.floor(
         Math.random() * (WIDTH-bacteriaSprite.w)
@@ -47,12 +47,12 @@ init = ->
     ))
 
 run = ->
-  repeat = ->
+  gameLoop = ->
     update()
     render()
 
-    window.requestAnimationFrame(repeat, game.canvas)
-  window.requestAnimationFrame(repeat, game.canvas)
+    window.requestAnimationFrame(gameLoop, game.canvas)
+  window.requestAnimationFrame(gameLoop, game.canvas)
 
 update = ->
   if input.isDown(38) # Up

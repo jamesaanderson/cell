@@ -24,27 +24,27 @@ main = function() {
 
 init = function() {
   var i, _results;
-  cell = new Player(cellSprite, (WIDTH - cellSprite.w) / 2, HEIGHT - cellSprite.h);
+  cell = new Entity(cellSprite, (WIDTH - cellSprite.w) / 2, HEIGHT - cellSprite.h);
   viruses = [];
   bacteria = [];
   i = 0;
   _results = [];
   while (i < 10) {
     i++;
-    viruses.push(new Player(virusSprite, Math.floor(Math.random() * (WIDTH - virusSprite.w)), Math.floor(Math.random() * ((HEIGHT - virusSprite.h) / 2))));
-    _results.push(bacteria.push(new Player(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 2)))));
+    viruses.push(new Entity(virusSprite, Math.floor(Math.random() * (WIDTH - virusSprite.w)), Math.floor(Math.random() * ((HEIGHT - virusSprite.h) / 2))));
+    _results.push(bacteria.push(new Entity(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 2)))));
   }
   return _results;
 };
 
 run = function() {
-  var repeat;
-  repeat = function() {
+  var gameLoop;
+  gameLoop = function() {
     update();
     render();
-    return window.requestAnimationFrame(repeat, game.canvas);
+    return window.requestAnimationFrame(gameLoop, game.canvas);
   };
-  return window.requestAnimationFrame(repeat, game.canvas);
+  return window.requestAnimationFrame(gameLoop, game.canvas);
 };
 
 update = function() {
