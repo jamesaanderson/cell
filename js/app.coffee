@@ -74,6 +74,12 @@ update = ->
   cell.x = Math.max(Math.min(cell.x, WIDTH-virusSprite.w), 0)
   cell.y = Math.min(cell.y, HEIGHT-virusSprite.h)
 
+  i = 0
+  while i < bacteria.length
+    bacteria.splice(i, 1) if game.isCollision(bacteria[i], cell)
+
+    i++
+
 render = ->
   game.clear()
 

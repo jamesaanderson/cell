@@ -6,6 +6,8 @@ Player = (function() {
     this.sprite = sprite;
     this.x = x;
     this.y = y;
+    this.w = this.sprite.w;
+    this.h = this.sprite.h;
   }
 
   return Player;

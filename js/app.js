@@ -62,6 +62,7 @@ run = function() {
 };
 
 update = function() {
+  var i, _results;
   if (input.isDown(38)) {
     cell.y -= 5;
   } else if (input.isDown(40)) {
@@ -72,7 +73,16 @@ update = function() {
     cell.x += 5;
   }
   cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);
-  return cell.y = Math.min(cell.y, HEIGHT - virusSprite.h);
+  cell.y = Math.min(cell.y, HEIGHT - virusSprite.h);
+  i = 0;
+  _results = [];
+  while (i < bacteria.length) {
+    if (game.isCollision(bacteria[i], cell)) {
+      bacteria.splice(i, 1);
+    }
+    _results.push(i++);
+  }
+  return _results;
 };
 
 render = function() {

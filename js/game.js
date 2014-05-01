@@ -20,6 +20,10 @@ Game = (function() {
     return this.ctx.drawImage(sp.img, sp.x, sp.y, sp.w, sp.h, x, y, sp.w, sp.h);
   };
 
+  Game.prototype.isCollision = function(a, b) {
+    return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+  };
+
   return Game;
 
 })();
