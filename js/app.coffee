@@ -1,120 +1,84 @@
-$ ->
-  class Game
-    constructor: (@width, @height) ->
-      @canvas = document.createElement('canvas')
-      @canvas.width = @width
-      @canvas.height = @height
-      @ctx = @canvas.getContext('2d')
+WIDTH = window.innerWidth
+HEIGHT = window.innerHeight
 
-      $('body').append(@canvas)
+game = undefined
+virusSprite = undefined
+cellSprite = undefined
+bacteriaSprite = undefined
+viruses = undefined
+bacteria = undefined
+cell = undefined
+input = undefined
 
-    clear: ->
-      @ctx.clearRect(0, 0, @width, @height)
+main = ->
+  game = new Game(WIDTH, HEIGHT)
+  input = new InputHandler()
 
-    drawSprite: (sp, x, y) ->
-      @ctx.drawImage(sp.img, sp.x, sp.y, sp.w, sp.h, x, y, sp.w, sp.h)
+  img = new Image()
+  $(img).on 'load',  ->
+    virusSprite = new Sprite(this, 0, 0, 44, 52)
+    cellSprite = new Sprite(this, 45, 0, 48, 52)
+    bacteriaSprite = new Sprite(this, 94, 0, 80, 52)
 
-  class Sprite
-    constructor: (@img, @x, @y, @w, @h) ->
+    init()
+    run()
+  img.src = 'img/sprites.png'
 
-  class InputHandler
-    constructor: ->
-      @down = {}
+init = ->
+  cell = new Player(cellSprite, (WIDTH-cellSprite.w)/2, HEIGHT-cellSprite.h)
 
-      _this = this
-      $(document).on 'keydown', (e) ->
-        _this.down[e.keyCode] = true
-      $(document).on 'keyup', (e) ->
-        delete _this.down[e.keyCode]
+  viruses = []
+  bacteria = []
+  i = 0
+  while i < 10
+    i++
 
-    isDown: (code) ->
-      @down[code]
-
-  WIDTH = window.innerWidth
-  HEIGHT = window.innerHeight
-
-  game = undefined
-  virusSprite = undefined
-  cellSprite = undefined
-  bacteriaSprite = undefined
-  viruses = undefined
-  bacteria = undefined
-  cell = undefined
-  input = undefined
-
-  main = ->
-    game = new Game(WIDTH, HEIGHT)
-    input = new InputHandler()
-
-    img = new Image()
-    $(img).on 'load',  ->
-      virusSprite = new Sprite(this, 0, 0, 44, 52)
-      cellSprite = new Sprite(this, 45, 0, 48, 52)
-      bacteriaSprite = new Sprite(this, 94, 0, 80, 52)
-
-      init()
-      run()
-    img.src = 'img/sprites.png'
-
-  init = ->
-    cell = {
-      sprite: cellSprite,
-      x: (WIDTH-cellSprite.w)/2,
-      y: HEIGHT-cellSprite.h
-    }
-
-    viruses = []
-    bacteria = []
-    i = 0
-    while i < 10
-      i++
-
-      viruses.push(
-        sprite: virusSprite,
-        x: Math.floor(
-          Math.random() * (WIDTH-virusSprite.w)
-        ),
-        y: Math.floor(
-          Math.random() * ((HEIGHT-virusSprite.h)/2)
-        )
+    viruses.push(new Player(
+      virusSprite,
+      Math.floor(
+        Math.random() * (WIDTH-virusSprite.w)
+      ),
+      Math.floor(
+        Math.random() * ((HEIGHT-virusSprite.h)/2)
       )
+    ))
 
-      bacteria.push(
-        sprite: bacteriaSprite,
-        x: Math.floor(
-          Math.random() * (WIDTH-bacteriaSprite.w)
-        ),
-        y: Math.floor(
-          Math.random() * ((HEIGHT-bacteriaSprite.h)/2)
-        )
+    bacteria.push(new Player(
+      bacteriaSprite,
+      Math.floor(
+        Math.random() * (WIDTH-bacteriaSprite.w)
+      ),
+      Math.floor(
+        Math.random() * ((HEIGHT-bacteriaSprite.h)/2)
       )
+    ))
 
-  run = ->
-    repeat = ->
-      update()
-      render()
+run = ->
+  repeat = ->
+    update()
+    render()
 
-      window.requestAnimationFrame(repeat, game.canvas)
     window.requestAnimationFrame(repeat, game.canvas)
+  window.requestAnimationFrame(repeat, game.canvas)
 
-  update = ->
-    if input.isDown(38) # Up
-      cell.y -= 10
-    else if input.isDown(40) # Down
-      cell.y += 10
-    else if input.isDown(37) # Left
-      cell.x -= 10
-    else if input.isDown(39) # Right
-      cell.x += 10
+update = ->
+  if input.isDown(38) # Up
+    cell.y -= 5
+  else if input.isDown(40) # Down
+    cell.y += 5
+  else if input.isDown(37) # Left
+    cell.x -= 5
+  else if input.isDown(39) # Right
+    cell.x += 5
 
-    cell.x = Math.max(Math.min(cell.x, WIDTH-virusSprite.w), 0)
-    cell.y = Math.min(cell.y, HEIGHT-virusSprite.h)
+  cell.x = Math.max(Math.min(cell.x, WIDTH-virusSprite.w), 0)
+  cell.y = Math.min(cell.y, HEIGHT-virusSprite.h)
 
-  render = ->
-    game.clear()
+render = ->
+  game.clear()
 
-    game.drawSprite(virus.sprite, virus.x, virus.y) for virus in viruses
-    game.drawSprite(bacterium.sprite, bacterium.x, bacterium.y) for bacterium in bacteria
-    game.drawSprite(cell.sprite, cell.x, cell.y)
+  game.drawSprite(virus.sprite, virus.x, virus.y) for virus in viruses
+  game.drawSprite(bacterium.sprite, bacterium.x, bacterium.y) for bacterium in bacteria
+  game.drawSprite(cell.sprite, cell.x, cell.y)
 
-  main()
+main()
