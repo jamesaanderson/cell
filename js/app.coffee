@@ -1,14 +1,7 @@
 WIDTH = window.innerWidth
 HEIGHT = window.innerHeight
 
-game = undefined
-virusSprite = undefined
-cellSprite = undefined
-bacteriaSprite = undefined
-viruses = undefined
-bacteria = undefined
-cell = undefined
-input = undefined
+game = virusSprite = cellSprite = bacteriaSprite = viruses = bacteria = cell = input = undefined
 
 main = ->
   game = new Game(WIDTH, HEIGHT)

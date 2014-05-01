@@ -5,21 +5,7 @@ WIDTH = window.innerWidth;
 
 HEIGHT = window.innerHeight;
 
-game = void 0;
-
-virusSprite = void 0;
-
-cellSprite = void 0;
-
-bacteriaSprite = void 0;
-
-viruses = void 0;
-
-bacteria = void 0;
-
-cell = void 0;
-
-input = void 0;
+game = virusSprite = cellSprite = bacteriaSprite = viruses = bacteria = cell = input = void 0;
 
 main = function() {
   var img;
