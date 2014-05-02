@@ -57,7 +57,7 @@ update = function() {
     cell.x += 5;
   }
   cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);
-  cell.y = Math.min(cell.y, HEIGHT - virusSprite.h);
+  cell.y = Math.max(Math.min(cell.y, HEIGHT - virusSprite.h), 0);
   i = 0;
   _results = [];
   while (i < bacteria.length) {
