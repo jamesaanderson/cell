@@ -49,11 +49,14 @@ update = function() {
   var i, _results;
   if (input.isDown(38)) {
     cell.y -= 5;
-  } else if (input.isDown(40)) {
+  }
+  if (input.isDown(40)) {
     cell.y += 5;
-  } else if (input.isDown(37)) {
+  }
+  if (input.isDown(37)) {
     cell.x -= 5;
-  } else if (input.isDown(39)) {
+  }
+  if (input.isDown(39)) {
     cell.x += 5;
   }
   cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);

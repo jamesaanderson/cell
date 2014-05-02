@@ -54,11 +54,11 @@ run = ->
 update = ->
   if input.isDown(38) # Up
     cell.y -= 5
-  else if input.isDown(40) # Down
+  if input.isDown(40) # Down
     cell.y += 5
-  else if input.isDown(37) # Left
+  if input.isDown(37) # Left
     cell.x -= 5
-  else if input.isDown(39) # Right
+  if input.isDown(39) # Right
     cell.x += 5
 
   cell.x = Math.max(Math.min(cell.x, WIDTH-virusSprite.w), 0)
