@@ -23,14 +23,12 @@ main = function() {
 };
 
 init = function() {
-  var i, _results;
+  var i, _i, _results;
   cell = new Entity(cellSprite, (WIDTH - cellSprite.w) / 2, HEIGHT - cellSprite.h);
   viruses = [];
   bacteria = [];
-  i = 0;
   _results = [];
-  while (i < 10) {
-    i++;
+  for (i = _i = 0; _i <= 10; i = ++_i) {
     viruses.push(new Entity(virusSprite, Math.floor(Math.random() * (WIDTH - virusSprite.w)), Math.floor(Math.random() * ((HEIGHT - virusSprite.h) / 2))));
     _results.push(bacteria.push(new Entity(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 2)))));
   }

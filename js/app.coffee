@@ -22,10 +22,7 @@ init = ->
 
   viruses = []
   bacteria = []
-  i = 0
-  while i < 10
-    i++
-
+  for i in [0..10]
     viruses.push(new Entity(
       virusSprite,
       Math.floor(
