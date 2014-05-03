@@ -64,7 +64,7 @@ update = function() {
   i = 0;
   _results = [];
   while (i < bacteria.length) {
-    if (game.isCollision(bacteria[i], cell)) {
+    if (bacteria[i].isCollision(cell)) {
       bacteria.splice(i, 1);
     }
     _results.push(i++);

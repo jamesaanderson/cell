@@ -66,7 +66,7 @@ update = ->
 
   i = 0
   while i < bacteria.length
-    bacteria.splice(i, 1) if game.isCollision(bacteria[i], cell)
+    bacteria.splice(i, 1) if bacteria[i].isCollision(cell)
 
     i++
 

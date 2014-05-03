@@ -10,6 +10,10 @@ Entity = (function() {
     this.h = this.sprite.h;
   }
 
+  Entity.prototype.isCollision = function(ent) {
+    return this.x < ent.x + ent.w && ent.x < this.x + this.w && this.y < ent.y + ent.h && ent.y < this.y + this.h;
+  };
+
   return Entity;
 
 })();
