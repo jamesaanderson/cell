@@ -43,6 +43,28 @@ init = ->
       )
     ))
 
+  setInterval (->
+    viruses.push(new Entity(
+      virusSprite,
+      Math.floor(
+        Math.random() * (WIDTH-virusSprite.w)
+      ),
+      Math.floor(
+        Math.random() * ((HEIGHT-virusSprite.h)/2)
+      )
+    ))
+
+    bacteria.push(new Entity(
+      bacteriaSprite,
+      Math.floor(
+        Math.random() * (WIDTH-bacteriaSprite.w)
+      ),
+      Math.floor(
+        Math.random() * ((HEIGHT-bacteriaSprite.h)/2)
+      )
+    ))
+  ), 5000
+
 run = ->
   gameLoop = ->
     update()
