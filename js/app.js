@@ -63,17 +63,14 @@ update = function() {
   }
   cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);
   cell.y = Math.max(Math.min(cell.y, HEIGHT - virusSprite.h), 0);
-  _(bacteria.length - 1).times(function(i) {
-    if (bacteria[i].isCollision(cell)) {
-      return bacteria.splice(i, 1);
+  _(bacteria).each(function(bacterium) {
+    if (bacterium.isCollision(cell)) {
+      return bacteria.splice(_.indexOf(bacteria, bacterium), 1);
     }
   });
-  return _(viruses.length - 1).times(function(i) {
-    if (viruses[i].isCollision(cell)) {
-      game.isOver = true;
-      return $(game.canvas).fadeTo('slow', 0.5, function() {
-        return alert('Game over!');
-      });
+  return _(viruses).each(function(virus) {
+    if (virus.isCollision(cell)) {
+      return game.isOver = true;
     }
   });
 };

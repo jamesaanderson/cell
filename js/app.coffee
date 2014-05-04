@@ -87,14 +87,12 @@ update = ->
   cell.x = Math.max(Math.min(cell.x, WIDTH-virusSprite.w), 0)
   cell.y = Math.max(Math.min(cell.y, HEIGHT-virusSprite.h), 0)
 
-  _(bacteria.length-1).times (i) ->
-    bacteria.splice(i, 1) if bacteria[i].isCollision(cell)
+  _(bacteria).each (bacterium) ->
+    bacteria.splice(_.indexOf(bacteria, bacterium), 1) if bacterium.isCollision(cell)
 
-  _(viruses.length-1).times (i) ->
-    if viruses[i].isCollision(cell)
+  _(viruses).each (virus) ->
+    if virus.isCollision(cell)
       game.isOver = true
-      $(game.canvas).fadeTo 'slow', 0.5, ->
-        alert 'Game over!'
 
 render = ->
   game.clear()
