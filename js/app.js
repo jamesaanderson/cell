@@ -23,14 +23,13 @@ main = function() {
 };
 
 init = function() {
-  var i, _i;
   cell = new Entity(cellSprite, (WIDTH - cellSprite.w) / 2, HEIGHT - cellSprite.h);
   viruses = [];
   bacteria = [];
-  for (i = _i = 0; _i <= 10; i = ++_i) {
+  _(10).times(function() {
     viruses.push(new Entity(virusSprite, Math.floor(Math.random() * (WIDTH - virusSprite.w)), Math.floor(Math.random() * ((HEIGHT - virusSprite.h) / 2))));
-    bacteria.push(new Entity(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 2))));
-  }
+    return bacteria.push(new Entity(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 2))));
+  });
   return setInterval((function() {
     viruses.push(new Entity(virusSprite, Math.floor(Math.random() * (WIDTH - virusSprite.w)), Math.floor(Math.random() * ((HEIGHT - virusSprite.h) / 2))));
     return bacteria.push(new Entity(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 2))));
@@ -50,7 +49,6 @@ run = function() {
 };
 
 update = function() {
-  var i, _results;
   if (input.isDown(38)) {
     cell.y -= 5;
   }
@@ -65,23 +63,19 @@ update = function() {
   }
   cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);
   cell.y = Math.max(Math.min(cell.y, HEIGHT - virusSprite.h), 0);
-  i = 0;
-  while (i < bacteria.length) {
+  _(bacteria.length - 1).times(function(i) {
     if (bacteria[i].isCollision(cell)) {
-      bacteria.splice(i, 1);
+      return bacteria.splice(i, 1);
     }
-    i++;
-  }
-  i = 0;
-  _results = [];
-  while (i < viruses.length) {
+  });
+  return _(viruses.length - 1).times(function(i) {
     if (viruses[i].isCollision(cell)) {
-      alert('Game over');
       game.isOver = true;
+      return $(game.canvas).fadeTo('slow', 0.5, function() {
+        return alert('Game over!');
+      });
     }
-    _results.push(i++);
-  }
-  return _results;
+  });
 };
 
 render = function() {

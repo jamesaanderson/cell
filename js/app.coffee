@@ -22,7 +22,7 @@ init = ->
 
   viruses = []
   bacteria = []
-  for i in [0..10]
+  _(10).times ->
     viruses.push(new Entity(
       virusSprite,
       Math.floor(
@@ -87,19 +87,14 @@ update = ->
   cell.x = Math.max(Math.min(cell.x, WIDTH-virusSprite.w), 0)
   cell.y = Math.max(Math.min(cell.y, HEIGHT-virusSprite.h), 0)
 
-  i = 0
-  while i < bacteria.length
+  _(bacteria.length-1).times (i) ->
     bacteria.splice(i, 1) if bacteria[i].isCollision(cell)
 
-    i++
-
-  i = 0
-  while i < viruses.length
+  _(viruses.length-1).times (i) ->
     if viruses[i].isCollision(cell)
-      alert 'Game over'
       game.isOver = true
-
-    i++
+      $(game.canvas).fadeTo 'slow', 0.5, ->
+        alert 'Game over!'
 
 render = ->
   game.clear()
