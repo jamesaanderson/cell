@@ -91,8 +91,7 @@ update = ->
     bacteria.splice(_.indexOf(bacteria, bacterium), 1) if bacterium.isCollision(cell)
 
   _(viruses).each (virus) ->
-    if virus.isCollision(cell)
-      game.isOver = true
+    game.isOver = true if virus.isCollision(cell)
 
 render = ->
   game.clear()
