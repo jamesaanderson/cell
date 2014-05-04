@@ -9,6 +9,7 @@ Game = (function() {
     this.canvas.width = this.width;
     this.canvas.height = this.height;
     this.ctx = this.canvas.getContext('2d');
+    this.isOver = false;
     $('body').append(this.canvas);
   }
 

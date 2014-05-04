@@ -4,6 +4,7 @@ class Game
     @canvas.width = @width
     @canvas.height = @height
     @ctx = @canvas.getContext('2d')
+    @isOver = false
 
     $('body').append(@canvas)
 

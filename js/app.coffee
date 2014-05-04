@@ -67,8 +67,9 @@ init = ->
 
 run = ->
   gameLoop = ->
-    update()
-    render()
+    unless game.isOver
+      update()
+      render()
 
     window.requestAnimationFrame(gameLoop, game.canvas)
   window.requestAnimationFrame(gameLoop, game.canvas)
@@ -89,6 +90,14 @@ update = ->
   i = 0
   while i < bacteria.length
     bacteria.splice(i, 1) if bacteria[i].isCollision(cell)
+
+    i++
+
+  i = 0
+  while i < viruses.length
+    if viruses[i].isCollision(cell)
+      alert 'Game over'
+      game.isOver = true
 
     i++
 

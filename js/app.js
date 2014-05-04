@@ -40,8 +40,10 @@ init = function() {
 run = function() {
   var gameLoop;
   gameLoop = function() {
-    update();
-    render();
+    if (!game.isOver) {
+      update();
+      render();
+    }
     return window.requestAnimationFrame(gameLoop, game.canvas);
   };
   return window.requestAnimationFrame(gameLoop, game.canvas);
@@ -64,10 +66,18 @@ update = function() {
   cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);
   cell.y = Math.max(Math.min(cell.y, HEIGHT - virusSprite.h), 0);
   i = 0;
-  _results = [];
   while (i < bacteria.length) {
     if (bacteria[i].isCollision(cell)) {
       bacteria.splice(i, 1);
+    }
+    i++;
+  }
+  i = 0;
+  _results = [];
+  while (i < viruses.length) {
+    if (viruses[i].isCollision(cell)) {
+      alert('Game over');
+      game.isOver = true;
     }
     _results.push(i++);
   }
