@@ -29,7 +29,7 @@ init = ->
         Math.random() * (WIDTH-virusSprite.w)
       ),
       Math.floor(
-        Math.random() * ((HEIGHT-virusSprite.h)/2)
+        Math.random() * ((HEIGHT-virusSprite.h)/1.5)
       )
     ))
 
@@ -39,7 +39,7 @@ init = ->
         Math.random() * (WIDTH-bacteriaSprite.w)
       ),
       Math.floor(
-        Math.random() * ((HEIGHT-bacteriaSprite.h)/2)
+        Math.random() * ((HEIGHT-bacteriaSprite.h)/1.5)
       )
     ))
 
@@ -51,7 +51,7 @@ init = ->
           Math.random() * (WIDTH-virusSprite.w)
         ),
         Math.floor(
-          Math.random() * ((HEIGHT-virusSprite.h)/2)
+          Math.random() * ((HEIGHT-virusSprite.h)/1.5)
         )
       ))
 
@@ -61,7 +61,7 @@ init = ->
           Math.random() * (WIDTH-bacteriaSprite.w)
         ),
         Math.floor(
-          Math.random() * ((HEIGHT-bacteriaSprite.h)/2)
+          Math.random() * ((HEIGHT-bacteriaSprite.h)/1.5)
         )
       ))
     ), 5000
@@ -89,7 +89,8 @@ update = ->
   cell.y = Math.max(Math.min(cell.y, HEIGHT-virusSprite.h), 0)
 
   _(bacteria).each (bacterium) ->
-    bacteria.splice(_.indexOf(bacteria, bacterium), 1) if bacterium.isCollision(cell)
+    index = _.indexOf(bacteria, bacterium)
+    bacteria.splice(index, 1) if bacterium.isCollision(cell)
 
   _(viruses).each (virus) ->
     game.isOver = true if virus.isCollision(cell)

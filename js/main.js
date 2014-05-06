@@ -27,13 +27,13 @@ init = function() {
   viruses = [];
   bacteria = [];
   _(10).times(function() {
-    viruses.push(new Entity(virusSprite, Math.floor(Math.random() * (WIDTH - virusSprite.w)), Math.floor(Math.random() * ((HEIGHT - virusSprite.h) / 2))));
-    return bacteria.push(new Entity(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 2))));
+    viruses.push(new Entity(virusSprite, Math.floor(Math.random() * (WIDTH - virusSprite.w)), Math.floor(Math.random() * ((HEIGHT - virusSprite.h) / 1.5))));
+    return bacteria.push(new Entity(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 1.5))));
   });
   return setInterval((function() {
     if (viruses.length + bacteria.length < 30) {
-      viruses.push(new Entity(virusSprite, Math.floor(Math.random() * (WIDTH - virusSprite.w)), Math.floor(Math.random() * ((HEIGHT - virusSprite.h) / 2))));
-      return bacteria.push(new Entity(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 2))));
+      viruses.push(new Entity(virusSprite, Math.floor(Math.random() * (WIDTH - virusSprite.w)), Math.floor(Math.random() * ((HEIGHT - virusSprite.h) / 1.5))));
+      return bacteria.push(new Entity(bacteriaSprite, Math.floor(Math.random() * (WIDTH - bacteriaSprite.w)), Math.floor(Math.random() * ((HEIGHT - bacteriaSprite.h) / 1.5))));
     }
   }), 5000);
 };
@@ -66,8 +66,10 @@ update = function() {
   cell.x = Math.max(Math.min(cell.x, WIDTH - virusSprite.w), 0);
   cell.y = Math.max(Math.min(cell.y, HEIGHT - virusSprite.h), 0);
   _(bacteria).each(function(bacterium) {
+    var index;
+    index = _.indexOf(bacteria, bacterium);
     if (bacterium.isCollision(cell)) {
-      return bacteria.splice(_.indexOf(bacteria, bacterium), 1);
+      return bacteria.splice(index, 1);
     }
   });
   return _(viruses).each(function(virus) {
