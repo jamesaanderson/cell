@@ -41,10 +41,8 @@ init = function() {
 run = function() {
   var gameLoop;
   gameLoop = function() {
-    if (!game.isOver) {
-      update();
-      render();
-    }
+    update();
+    render();
     return window.requestAnimationFrame(gameLoop, game.canvas);
   };
   return window.requestAnimationFrame(gameLoop, game.canvas);
@@ -74,7 +72,7 @@ update = function() {
   });
   return _(viruses).each(function(virus) {
     if (virus.isCollision(cell)) {
-      return game.isOver = true;
+      return init();
     }
   });
 };

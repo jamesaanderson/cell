@@ -68,9 +68,8 @@ init = ->
 
 run = ->
   gameLoop = ->
-    unless game.isOver
-      update()
-      render()
+    update()
+    render()
 
     window.requestAnimationFrame(gameLoop, game.canvas)
   window.requestAnimationFrame(gameLoop, game.canvas)
@@ -93,7 +92,7 @@ update = ->
     bacteria.splice(index, 1) if bacterium.isCollision(cell)
 
   _(viruses).each (virus) ->
-    game.isOver = true if virus.isCollision(cell)
+    init() if virus.isCollision(cell)
 
 render = ->
   game.clear()
