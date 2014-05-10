@@ -51,16 +51,16 @@ run = function() {
 };
 
 update = function() {
-  if (input.isDown(38)) {
+  if (input.isDown(38) || input.isDown(87)) {
     player.y -= 5;
   }
-  if (input.isDown(40)) {
+  if (input.isDown(40) || input.isDown(83)) {
     player.y += 5;
   }
-  if (input.isDown(37)) {
+  if (input.isDown(37) || input.isDown(65)) {
     player.x -= 5;
   }
-  if (input.isDown(39)) {
+  if (input.isDown(39) || input.isDown(68)) {
     player.x += 5;
   }
   player.x = Math.max(Math.min(player.x, WIDTH - virusSprite.w), 0);

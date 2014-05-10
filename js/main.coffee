@@ -60,14 +60,10 @@ run = ->
   window.requestAnimationFrame(gameLoop, game.canvas)
 
 update = ->
-  if input.isDown(38) # Up
-    player.y -= 5
-  if input.isDown(40) # Down
-    player.y += 5
-  if input.isDown(37) # Left
-    player.x -= 5
-  if input.isDown(39) # Right
-    player.x += 5
+  player.y -= 5 if input.isDown(38) or input.isDown(87) # Up/W
+  player.y += 5 if input.isDown(40) or input.isDown(83) # Down/S
+  player.x -= 5 if input.isDown(37) or input.isDown(65) # Left/A
+  player.x += 5 if input.isDown(39) or input.isDown(68) # Right/D
 
   player.x = Math.max(Math.min(player.x, WIDTH-virusSprite.w), 0)
   player.y = Math.max(Math.min(player.y, HEIGHT-virusSprite.h), 0)
