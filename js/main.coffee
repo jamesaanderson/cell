@@ -1,7 +1,7 @@
 WIDTH = window.innerWidth
 HEIGHT = window.innerHeight
 
-game = virusSprite = cellSprite = bacteriaSprite = viruses = bacteria = cell = input = undefined
+game = virusSprite = playerSprite = bacteriaSprite = viruses = bacteria = player = input = score = undefined
 
 main = ->
   game = new Game(WIDTH, HEIGHT)
@@ -10,59 +10,44 @@ main = ->
   img = new Image()
   $(img).on 'load',  ->
     virusSprite = new Sprite(this, 0, 0, 44, 52)
-    cellSprite = new Sprite(this, 45, 0, 48, 52)
+    playerSprite = new Sprite(this, 45, 0, 48, 52)
     bacteriaSprite = new Sprite(this, 94, 0, 80, 52)
+    cellSprite = new Sprite(this, 245, 0, 28, 28)
 
     init()
     run()
   img.src = 'img/sprites.png'
 
 init = ->
-  cell = new Entity(cellSprite, (WIDTH-cellSprite.w)/2, HEIGHT-cellSprite.h)
+  player = new Entity(playerSprite, (WIDTH-playerSprite.w)/2, HEIGHT-playerSprite.h)
 
   viruses = []
   bacteria = []
   _(10).times ->
     viruses.push(new Entity(
       virusSprite,
-      Math.floor(
-        Math.random() * (WIDTH-virusSprite.w)
-      ),
-      Math.floor(
-        Math.random() * ((HEIGHT-virusSprite.h)/1.5)
-      )
+      Math.floor(Math.random()*(WIDTH-virusSprite.w)),
+      Math.floor(Math.random()*((HEIGHT-virusSprite.h)/1.5))
     ))
 
     bacteria.push(new Entity(
       bacteriaSprite,
-      Math.floor(
-        Math.random() * (WIDTH-bacteriaSprite.w)
-      ),
-      Math.floor(
-        Math.random() * ((HEIGHT-bacteriaSprite.h)/1.5)
-      )
+      Math.floor(Math.random()*(WIDTH-bacteriaSprite.w)),
+      Math.floor(Math.random() * ((HEIGHT-bacteriaSprite.h)/1.5))
     ))
 
   setInterval (->
     if viruses.length + bacteria.length < 30
       viruses.push(new Entity(
         virusSprite,
-        Math.floor(
-          Math.random() * (WIDTH-virusSprite.w)
-        ),
-        Math.floor(
-          Math.random() * ((HEIGHT-virusSprite.h)/1.5)
-        )
+        Math.floor(Math.random()*(WIDTH-virusSprite.w)),
+        Math.floor(Math.random()*((HEIGHT-virusSprite.h)/1.5))
       ))
 
       bacteria.push(new Entity(
         bacteriaSprite,
-        Math.floor(
-          Math.random() * (WIDTH-bacteriaSprite.w)
-        ),
-        Math.floor(
-          Math.random() * ((HEIGHT-bacteriaSprite.h)/1.5)
-        )
+        Math.floor(Math.random()*(WIDTH-bacteriaSprite.w)),
+        Math.floor(Math.random()*((HEIGHT-bacteriaSprite.h)/1.5))
       ))
     ), 5000
 
@@ -76,29 +61,29 @@ run = ->
 
 update = ->
   if input.isDown(38) # Up
-    cell.y -= 5
+    player.y -= 5
   if input.isDown(40) # Down
-    cell.y += 5
+    player.y += 5
   if input.isDown(37) # Left
-    cell.x -= 5
+    player.x -= 5
   if input.isDown(39) # Right
-    cell.x += 5
+    player.x += 5
 
-  cell.x = Math.max(Math.min(cell.x, WIDTH-virusSprite.w), 0)
-  cell.y = Math.max(Math.min(cell.y, HEIGHT-virusSprite.h), 0)
+  player.x = Math.max(Math.min(player.x, WIDTH-virusSprite.w), 0)
+  player.y = Math.max(Math.min(player.y, HEIGHT-virusSprite.h), 0)
 
   _(bacteria).each (bacterium) ->
     index = _.indexOf(bacteria, bacterium)
-    bacteria.splice(index, 1) if bacterium.isCollision(cell)
+    bacteria.splice(index, 1) if bacterium.isCollision(player)
 
   _(viruses).each (virus) ->
-    init() if virus.isCollision(cell)
+    init() if virus.isCollision(player)
 
 render = ->
   game.clear()
 
   game.drawSprite(virus.sprite, virus.x, virus.y) for virus in viruses
   game.drawSprite(bacterium.sprite, bacterium.x, bacterium.y) for bacterium in bacteria
-  game.drawSprite(cell.sprite, cell.x, cell.y)
+  game.drawSprite(player.sprite, player.x, player.y)
 
 main()
